@@ -46,15 +46,21 @@ exports.getBootcamps = async (req, res) => {
   };
 
 
+exports.createBootcamp = async (req, res) => {
+try {
+    const postBootcamp = await Bootcamp.create(req.body);
+    res.status(201).json({
+      success: true,
+      data: postBootcamp
+    });
+
+    } catch (err) {
+    res.status(400).json({
+      success: false,
+      error: err.message
+    });
+  }
+  
 
 
-  /**
- req & res
-
-/req: has details about the incoming request(this includes url parameters like ":id")
- res: this is what is use to send a response back.
-
-
-
- try holds the code you expect to run normally, and catch "catches" anything that goes unexpectedly wrong while that code was running, so your server can respond gracefully instead of crashing.
- */
+};

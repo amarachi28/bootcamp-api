@@ -49,6 +49,7 @@ exports.getBootcamps = async (req, res) => {
 exports.createBootcamp = async (req, res) => {
 try {
     const postBootcamp = await Bootcamp.create(req.body);
+     
     res.status(201).json({
       success: true,
       data: postBootcamp
@@ -64,3 +65,59 @@ try {
 
 
 };
+
+exports.updateBootcamp = async (req, res) => {
+try {
+ const putBootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after', runValidators: true })
+ 
+if (!putBootcamp) {
+    return res.status(404).json({
+      success: false,
+      error: `Bootcamp not found with id of ${req.params.id}`// handles expected error
+
+    });
+    }
+
+ res.status(200).json({
+      success: true,
+      data: putBootcamp
+    });
+
+
+    } catch (err) {
+    res.status(400).json({
+      success: false,
+      error: err.message
+    });
+
+  }
+
+};
+
+
+
+exports.deleteBootcamp = async (req, res) => {
+  try{
+  const removeBootcamp = await Bootcamp.findByIdAndDelete(req.params.id)
+    
+   if (!removeBootcamp) {
+    return res.status(404).json({
+      success: false,
+      error: `Bootcamp not found with id of ${req.params.id}`// handles expected error
+
+    });
+   }
+   res.status(200).json({
+      success: true,
+      data: {}
+    });
+  
+  } catch (error) {//handles unexpected error
+
+    res.status(500).json({
+      success: false,
+      error: 'Server Error'
+    });
+
+  }
+  };

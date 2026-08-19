@@ -4,7 +4,15 @@ const Bootcamp = require('../models/Bootcamp');
 // @route   GET /api/v1/bootcamps
 exports.getBootcamps = async (req, res) => {
   try {
-    const bootcamps = await Bootcamp.find();
+
+    //paginition
+    const page = parseInt(req.query.page) || 1 
+    const limit = parseInt(req.query.limit) || 25
+
+    const skip = (page - 1) * limit
+   
+   const bootcamps = await Bootcamp.find().skip(skip).limit(limit);
+
     res.status(200).json({
       success: true,
       count: bootcamps.length,

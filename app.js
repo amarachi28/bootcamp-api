@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const bootcamps = require('./routes/bootcamps');
-//const courses = require('./routes/courses');
+const courses = require('./routes/courses');
 
 
 
@@ -21,8 +21,7 @@ app.get('/', (req, res) => {
 });
 app.use(express.json()); 
 app.use('/api/v1/bootcamps', bootcamps);
-//app.use('/api/v1/bootcamps/:bootcampId/courses', courses);
-
+app.use('/api/v1/courses', courses);
 
 
 app.listen(PORT, () => {

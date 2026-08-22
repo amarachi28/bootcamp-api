@@ -7,6 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const bootcamps = require('./routes/bootcamps');
+//const courses = require('./routes/courses');
+
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -18,6 +21,9 @@ app.get('/', (req, res) => {
 });
 app.use(express.json()); 
 app.use('/api/v1/bootcamps', bootcamps);
+//app.use('/api/v1/bootcamps/:bootcampId/courses', courses);
+
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

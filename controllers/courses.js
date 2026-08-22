@@ -18,7 +18,55 @@ res.status(200).json({
   }
 };
 
+exports.createCourse = async (req, res) => {
+  try {
+       req.body.bootcamp = req.params.bootcampId;
+       const postCourse = await Course.create(req.body);
+ 
+res.status(201).json({
+      success: true,
+      data: postCourse
+    });
 
+  } catch (err) {
+
+res.status(400).json({
+      success: false,
+      error: err.message
+    });
+  }
+};
+
+
+
+
+
+
+/*
+
+exports.createBootcamp = async (req, res) => {
+try {
+    const postBootcamp = await Bootcamp.create(req.body);
+     
+    res.status(201).json({
+      success: true,
+      data: postBootcamp
+    });
+
+    } catch (err) {
+    res.status(400).json({
+      success: false,
+      error: err.message
+    });
+  }
+  
+
+
+};
+
+
+
+*/
 
 
 /**

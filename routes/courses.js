@@ -2,27 +2,14 @@
 
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const {getCourses, createCourse, getCourse, updateCourse} = require('../controllers/courses');
+const {getCourses, createCourse, getCourse, updateCourse, deleteCourse} = require('../controllers/courses');
 
 
 router.route('/').get(getCourses).post(createCourse);
-router.route('/:id').get(getCourse).put(updateCourse)
+router.route('/:id').get(getCourse).put(updateCourse).delete(deleteCourse);
 module.exports = router;
 
 
 
 
 
-/*
-
-const express = require('express');
-const router = express.Router();
-
-const {getBootcamps, getBootcamp, createBootcamp, updateBootcamp, deleteBootcamp} = require('../controllers/bootcamps');
-
-router.route('/').get(getBootcamps).post(createBootcamp);
-router.route('/:id').get(getBootcamp).put(updateBootcamp)
-.delete(deleteBootcamp);
-
-
-module.exports = router;*/

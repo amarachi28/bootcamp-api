@@ -58,40 +58,76 @@ const singleCourse = await Course.findById(req.params.id)
       success: false,
       error: 'Server Error'
     });
+  }
+}
+
+exports.updateCourse = async (req, res) => { 
+  
+  try {  
+const putCourse = await Course.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after', runValidators: true })
+
+if (!putCourse) {
+    return res.status(404).json({
+      success: false,
+      error: `Course not found with id of ${req.params.id}`// handles expected error
+
+    });
+  }
+res.status(200).json({
+      success: true,
+      data: putCourse
+    });
 
 
+    } catch (err) {
+    res.status(400).json({
+      success: false,
+      error: err.message
+    });
+
+  }
 
 }
 
-}
+
+
+
+
+
+
+
+
 
 /*
 
- exports.getBootcamp = async (req, res) => {
-  try{
-  const singleBootcamp = await Bootcamp.findById(req.params.id)
-    
-   if (!singleBootcamp) {
+ exports.updateBootcamp = async (req, res) => {
+try {
+ const putBootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after', runValidators: true })
+ 
+if (!putBootcamp) {
     return res.status(404).json({
       success: false,
       error: `Bootcamp not found with id of ${req.params.id}`// handles expected error
 
     });
-   }
-   res.status(200).json({
-      success: true,
-      data: singleBootcamp
-    });
-  
-  } catch (error) {//handles unexpected error
+    }
 
-    res.status(500).json({
+ res.status(200).json({
+      success: true,
+      data: putBootcamp
+    });
+
+
+    } catch (err) {
+    res.status(400).json({
       success: false,
-      error: 'Server Error'
+      error: err.message
     });
 
   }
-  };
+
+};
+
 
 
 */

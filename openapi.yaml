@@ -1,0 +1,271 @@
+
+#Header
+openapi: 3.1.0
+info:
+  title: Bootcamp API
+  description: A REST API for browsing, managing, and enrolling in software development bootcamps and their associated courses.
+  version: 1.0.0
+
+#Server
+servers: 
+  - url: http://localhost:3000
+    description: Local development server    
+  
+  
+#Paths
+paths: 
+  /bootcamps:
+    get:
+      summary: Get all bootcamps
+      parameters: 
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1            
+          description: The page number of results to return
+        - name: limit
+          in:  query
+          schema:
+            type: integer
+            default: 25
+          description: The limit number of items to return
+      responses:
+        '200':
+          description: A list of bootcamps
+          content:
+            application/json: 
+              schema: 
+                type: object 
+                properties:
+                  success: 
+                    type: boolean
+                  count: 
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+              example: 
+                success: true
+                count: 4
+                data:
+                   - _id: "6a70215e62ad8dc8d3c95906"
+                     name: "Devworks Bootcamp"
+                     description: "Updated: Full stack JavaScript bootcamp with career support"
+                     website: "https://devworks.com"
+                     careers:
+                       - "Web Development"
+                       - "UI/UX"
+                     createdAt: "2026-08-31T09:50:25.658Z"
+    post:
+      summary: Create a bootcamp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                website:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                careers:
+                  type: array
+                  items:
+                    type: string
+            example:
+              name: "Devworks Bootcamp"
+              description: "Updated: Full stack JavaScript bootcamp with career support"
+              website: "https://devworks.com"
+              phone: "1234567890"
+              email: "johndoe@gmail.com"
+              careers:
+                - "Web Development"
+                - "UI/UX"
+      responses:
+        '201':
+          description: Bootcamp created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+              example:
+                success: true
+                data:
+                  _id: "6a70215e62ad8dc8d3c95906"
+                  name: "Devworks Bootcamp"
+                  description: "Updated: Full stack JavaScript bootcamp with career support"
+                  website: "https://devworks.com"
+                  phone: "1234567890"
+                  email: "johndoe@gmail.com"
+                  careers:
+                    - "Web Development"
+                    - "UI/UX"
+                  createdAt: "2026-08-31T09:50:25.658Z"            
+  /bootcamps/{id}:   
+    get:
+      summary: Get bootcamp by id
+      parameters:    
+        -  name: id
+           in: path 
+           schema:
+             type: string
+           description: A bootcamp id
+           required: true        
+      responses:
+        '200':
+          description: A single bootcamp
+          content:
+            application/json: 
+              schema: 
+                type: object 
+                properties:
+                  success: 
+                    type: boolean                     
+                  data:
+                    type: object                    
+              example: 
+                success: true
+                data:
+                   _id: "6a70215e62ad8dc8d3c95906"
+                   name: "Devworks Bootcamp"
+                   description: "Updated: Full stack JavaScript bootcamp with career support"
+                   website: "https://devworks.com"
+                   careers:
+                     - "Web Development"
+                     - "UI/UX"
+                   createdAt: "2026-08-31T09:50:25.658Z"
+        '404':
+          description: Missing bootcamp
+          content:
+            application/json: 
+              schema: 
+                type: object 
+                properties:
+                  success: 
+                    type: boolean                     
+                  error:  
+                    type: string
+              example: 
+                success: false
+                error: "Bootcamp not found with id of 6a70215e62ad8dc8d3c95906"
+    put:
+      summary: Update a bootcamp
+      parameters:
+        -  name: id
+           in: path 
+           schema:
+             type: string
+           description: A bootcamp id
+           required: true           
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                website:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                careers:
+                  type: array
+                  items:
+                    type: string
+            example:                
+              description: "Updated: Full stack JavaScript bootcamp with career support"                                               
+      responses:
+        '200':
+          description: Bootcamp updated
+          content:            
+            application/json:               
+              schema:                 
+                type: object                 
+                properties:                  
+                  success:                     
+                    type: boolean       
+                  data:                    
+                    type: object                                           
+              example:                 
+                success: true                
+                data:                   
+                   _id: "6a70215e62ad8dc8d3c95906"                   
+                   name: "Devworks Bootcamp"                  
+                   description: "Updated: Full stack JavaScript bootcamp with career support"                   
+                   website: "https://devworks.com"                   
+                   careers:                     
+                     - "Web Development"                   
+                     - "UI/UX"                                        
+                   createdAt: "2026-08-31T09:50:25.658Z"        
+        '404':
+          description: Missing bootcamp
+          content:            
+            application/json:               
+              schema:                 
+                type: object                 
+                properties:                  
+                  success:                     
+                    type: boolean                                 
+                  error:                      
+                    type: string              
+              example:                 
+                success: false                
+                error: "Bootcamp not found with id of 6a70215e62ad8dc8d3c95906" 
+    delete:
+      summary: Delete a bootcamp
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          description: A bootcamp id
+          required: true
+      responses:
+        '200':
+          description: Bootcamp deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+              example:
+                success: true
+                data: {}
+        '404':
+          description: Missing bootcamp
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                success: false
+                error: "Bootcamp not found with id of 6a70215e62ad8dc8d3c95906"

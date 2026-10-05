@@ -269,3 +269,118 @@ paths:
               example:
                 success: false
                 error: "Bootcamp not found with id of 6a70215e62ad8dc8d3c95906"
+  /bootcamps/{bootcampId}/courses:
+    get:
+      summary: Get all courses under a bootcamp
+      parameters:
+        - name: bootcampId
+          in: path
+          schema:
+            type: string
+          description: The ID of the bootcamp whose courses you want to list
+          required: true
+      responses:
+        '200':
+          description: A list of courses
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  count:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+              example:
+                success: true
+                count: 1
+                data:
+                  - _id: "6a89391d7e6637fe01ec176c"
+                    title: "Full Stack Web Development"
+                    description: "Learn front and back end development"
+                    weeks: 12
+                    tuition: 9500
+                    minimumSkill: "beginner"
+                    bootcamp: "6a70215e62ad8dc8d3c95906"
+                    createdAt: "2026-08-22T05:52:29.891Z"
+    post:
+      summary: Get all courses under a bootcamp
+      parameters:
+        - name: bootcampId
+          in: path
+          schema:
+            type: string
+          description: The ID of the bootcamp whose courses you want to list
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                weeks:
+                  type: integer
+                tuition:
+                  type: integer
+                minimumSkill:
+                  type: string               
+            example:
+              title: "Full Stack Web Development"
+              description: "Learn front and back end development"
+              weeks: 12
+              tuition: 9500
+              minimumSkill: "beginner"             
+      responses:
+        '201':
+          description: bootcampId created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+              example:
+                success: true
+                data:
+            example:
+            - _id: "6a89391d7e6637fe01ec176c"
+              title: "Full Stack Web Development"
+              description: "Learn front and back end development"
+              weeks: 12
+              tuition: 9500
+              minimumSkill: "beginner" 
+              bootcamp: "6a70215e62ad8dc8d3c95906"
+              createdAt: "2026-08-22T05:52:29.891Z"
+        '400':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+              example:
+                success: true
+                data:
+            example:
+            - _id: "6a89391d7e6637fe01ec176c"
+              Course validation failed: 
+              tuition: "Path `tuition` is required." 
+              title: "Please add a title"              
+              createdAt: "2026-08-22T05:52:29.891Z"
+                  

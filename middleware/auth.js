@@ -14,16 +14,3 @@ return res.status(401).json({
 
 
 
-/**
- 
-
-
-const singleBootcamp = await Bootcamp.findById(req.params.id)
-    
-   if (!singleBootcamp) {
-    return res.status(404).json({
-      success: false,
-      error: `Bootcamp not found with id of ${req.params.id}`// handles expected error
-
-    });
- */

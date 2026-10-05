@@ -526,3 +526,13 @@ paths:
               example:
                 success: false                
                 error: "Course not found with id of 000000000000000000000000"
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+security:
+  - ApiKeyAuth: []

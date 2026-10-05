@@ -114,7 +114,21 @@ paths:
                   careers:
                     - "Web Development"
                     - "UI/UX"
-                  createdAt: "2026-08-31T09:50:25.658Z"            
+                  createdAt: "2026-08-31T09:50:25.658Z" 
+        '400':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                success: false
+                error: "Bootcamp validation failed: name: Please add a name"                           
   /bootcamps/{id}:   
     get:
       summary: Get bootcamp by id

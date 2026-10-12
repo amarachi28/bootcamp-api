@@ -6,17 +6,30 @@ info:
   description: A REST API for browsing, managing, and enrolling in software development bootcamps and their associated courses.
   version: 1.0.0
 
+  contact:
+    name: Amarachi
+    email: amarachiogueji@gmail.com
+
 #Server
 servers: 
   - url: http://localhost:3000/api/v1
     description: Local development server    
-  
+
+tags:
+  - name: Bootcamps
+    description: Create, read, update, and delete bootcamps.
+  - name: Courses
+    description: Manage the courses that belong to a bootcamp.  
   
 #Paths
 paths: 
   /bootcamps:
     get:
       summary: Get all bootcamps
+      description: Returns a paginated list of all bootcamps. Use the page and limit query parameters to move through the results.
+      operationId: getBootcamps
+      tags:
+        - Bootcamps
       parameters: 
         - name: page
           in: query
@@ -60,6 +73,10 @@ paths:
                      createdAt: "2026-08-31T09:50:25.658Z"
     post:
       summary: Create a bootcamp
+      description: Creates a new bootcamp. The name, description and careers fields are required.
+      operationId: createBootcamp
+      tags:
+        - Bootcamps
       requestBody:
         required: true
         content:
@@ -132,6 +149,10 @@ paths:
   /bootcamps/{id}:   
     get:
       summary: Get bootcamp by id
+      description: Returns a single bootcamp by its ID. Returns a 404 if no bootcamp matches.
+      operationId: getBootcamp
+      tags:
+        - Bootcamps
       parameters:    
         -  name: id
            in: path 
@@ -178,6 +199,10 @@ paths:
                 error: "Bootcamp not found with id of 6a70215e62ad8dc8d3c95906"
     put:
       summary: Update a bootcamp
+      description: Updates an existing bootcamp. Send only the fields you want to change.
+      operationId: updateBootcamp
+      tags:
+        - Bootcamps
       parameters:
         -  name: id
            in: path 
@@ -247,6 +272,10 @@ paths:
                 error: "Bootcamp not found with id of 6a70215e62ad8dc8d3c95906" 
     delete:
       summary: Delete a bootcamp
+      description: Permanently deletes a bootcamp by its ID.
+      operationId: deleteBootcamp
+      tags:
+        - Bootcamps
       parameters:
         - name: id
           in: path
@@ -286,6 +315,10 @@ paths:
   /bootcamps/{bootcampId}/courses:
     get:
       summary: Get all courses under a bootcamp
+      description: Returns all courses that belong to a bootcamp. Returns an empty list if the bootcamp has no courses.
+      operationId: getCourses
+      tags:
+        - Courses
       parameters:
         - name: bootcampId
           in: path
@@ -323,6 +356,10 @@ paths:
                     createdAt: "2026-08-22T05:52:29.891Z"
     post:
       summary: Create a course under a bootcamp.
+      description: Creates a new course under the bootcamp in the URL. The title and tuition fields are required.
+      operationId: createCourse
+      tags:
+        - Courses
       parameters:
         - name: bootcampId
           in: path
@@ -393,6 +430,10 @@ paths:
   /courses/{id}:
     get:
       summary: Get a course by id
+      description: Returns a single course by its ID. Returns a 404 if no course matches.
+      operationId: getCourse   
+      tags:
+        - Courses
       parameters:    
         -  name: id
            in: path 
@@ -439,6 +480,10 @@ paths:
                 error: "Course not found with id of 000000000000000000000000"
     put:
       summary: Update a course by id
+      description: Updates an existing course. Send only the fields you want to change.
+      operationId: updateCourse
+      tags:
+        - Courses
       parameters:    
         -  name: id
            in: path 
@@ -504,6 +549,10 @@ paths:
                 error: "Course not found with id of 000000000000000000000000" 
     delete:
       summary: Delete a course by id
+      description: Permanently deletes a course by its ID.
+      operationId: deleteCourse
+      tags:
+        - Courses
       parameters:    
         -  name: id
            in: path 
